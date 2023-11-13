@@ -32,7 +32,7 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var locationtextField: UITextField!
     
     let apiHost = "weatherapi-com.p.rapidapi.com"
-    let apiKey = "01181444bbmsh8a407fcc60c6085p199a6ejsn851d59f8bb1d"
+    let apiKey = ""
     let apiUrl = "https://weatherapi-com.p.rapidapi.com/current.json"
     var weatherArray: [Weather] = []
     
