@@ -54,22 +54,24 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="159"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0C°" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUw-UR-IyT">
-                                                    <rect key="frame" x="16" y="88" width="92" height="60"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0C°" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUw-UR-IyT">
+                                                    <rect key="frame" x="41" y="86" width="100" height="60"/>
                                                     <color key="backgroundColor" white="1" alpha="0.69500762739999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="60" id="p4u-Qq-U8N"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="wkC-E9-WJz"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="KohinoorBangla-Semibold" family="Kohinoor Bangla" pointSize="30"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYj-fD-IS4">
-                                                    <rect key="frame" x="16" y="21" width="92" height="30"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYj-fD-IS4">
+                                                    <rect key="frame" x="26" y="21" width="130" height="50"/>
                                                     <color key="backgroundColor" white="1" alpha="0.69500762737349964" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="KYo-n2-2hG"/>
-                                                        <constraint firstAttribute="height" constant="30" id="QYj-d0-99L"/>
+                                                        <constraint firstAttribute="width" constant="130" id="QUl-pr-QHZ"/>
+                                                        <constraint firstAttribute="height" constant="50" id="QYj-d0-99L"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -81,18 +83,43 @@
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0mm" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nzH-xK-AXP">
+                                                    <rect key="frame" x="229" y="86" width="100" height="60"/>
+                                                    <color key="backgroundColor" white="1" alpha="0.69500762739999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="60" id="8Uq-vT-vWb"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="czC-18-cNk"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="KohinoorBangla-Semibold" family="Kohinoor Bangla" pointSize="24"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cloud.drizzle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Z6W-dQ-uGc">
+                                                    <rect key="frame" x="255" y="20" width="50" height="51.5"/>
+                                                    <color key="backgroundColor" white="1" alpha="0.69500762739999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="SjV-uG-Six"/>
+                                                        <constraint firstAttribute="height" constant="50" id="xlh-iF-YLK"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="wYj-fD-IS4" secondAttribute="trailing" constant="267" id="E73-dG-QNx"/>
-                                                <constraint firstItem="aUw-UR-IyT" firstAttribute="leading" secondItem="bl2-ZP-Q2L" secondAttribute="leadingMargin" constant="14" id="iPX-ym-FbO"/>
+                                                <constraint firstItem="nzH-xK-AXP" firstAttribute="top" secondItem="Z6W-dQ-uGc" secondAttribute="bottom" constant="15" id="0bj-x4-VQv"/>
+                                                <constraint firstAttribute="trailing" secondItem="Z6W-dQ-uGc" secondAttribute="trailing" constant="70" id="1eX-oW-QGE"/>
+                                                <constraint firstItem="aUw-UR-IyT" firstAttribute="top" secondItem="wYj-fD-IS4" secondAttribute="bottom" constant="15" id="6gG-iH-gdw"/>
+                                                <constraint firstItem="nzH-xK-AXP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="aUw-UR-IyT" secondAttribute="trailing" constant="8" symbolic="YES" id="Iyy-wu-KZh"/>
+                                                <constraint firstItem="Z6W-dQ-uGc" firstAttribute="top" secondItem="bl2-ZP-Q2L" secondAttribute="topMargin" constant="10" id="WuX-6f-b7Z"/>
+                                                <constraint firstItem="aUw-UR-IyT" firstAttribute="leading" secondItem="bl2-ZP-Q2L" secondAttribute="leadingMargin" constant="25" id="iPX-ym-FbO"/>
                                                 <constraint firstItem="wYj-fD-IS4" firstAttribute="top" secondItem="bl2-ZP-Q2L" secondAttribute="topMargin" constant="10" id="kYn-6b-LwS"/>
-                                                <constraint firstItem="aUw-UR-IyT" firstAttribute="bottom" secondItem="bl2-ZP-Q2L" secondAttribute="bottomMargin" id="koT-00-aRt"/>
-                                                <constraint firstItem="aUw-UR-IyT" firstAttribute="top" relation="greaterThanOrEqual" secondItem="wYj-fD-IS4" secondAttribute="bottom" constant="10" id="rFt-H3-2tW"/>
-                                                <constraint firstItem="wYj-fD-IS4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bl2-ZP-Q2L" secondAttribute="leadingMargin" id="uv5-Qf-aRi"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="nzH-xK-AXP" secondAttribute="trailing" constant="30" id="nOL-eb-L4y"/>
+                                                <constraint firstItem="Z6W-dQ-uGc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="wYj-fD-IS4" secondAttribute="trailing" constant="8" symbolic="YES" id="oky-tY-uVz"/>
+                                                <constraint firstItem="wYj-fD-IS4" firstAttribute="leading" secondItem="bl2-ZP-Q2L" secondAttribute="leadingMargin" constant="10" id="uv5-Qf-aRi"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="cityLabel" destination="wYj-fD-IS4" id="4q3-7q-Omj"/>
+                                            <outlet property="precipitationImage" destination="Z6W-dQ-uGc" id="a2d-Is-BlP"/>
+                                            <outlet property="precipitationLabel" destination="nzH-xK-AXP" id="uca-6Z-A9c"/>
                                             <outlet property="tempLabel" destination="aUw-UR-IyT" id="ZV2-H0-x1t"/>
                                         </connections>
                                     </tableViewCell>
@@ -154,6 +181,7 @@
     </scenes>
     <resources>
         <image name="arrow.clockwise" catalog="system" width="113" height="128"/>
+        <image name="cloud.drizzle" catalog="system" width="126" height="128"/>
         <image name="pencil" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

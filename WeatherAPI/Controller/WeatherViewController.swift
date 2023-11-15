@@ -7,8 +7,9 @@
 
 import UIKit
 import Alamofire
+import CoreLocation
 
-class WeatherViewController: UIViewController {
+class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     
     enum WeatherImage: String {
         case sunny = "CellSunny"
@@ -34,15 +35,30 @@ class WeatherViewController: UIViewController {
     let apiHost = "weatherapi-com.p.rapidapi.com"
     let apiKey = ""
     let apiUrl = "https://weatherapi-com.p.rapidapi.com/current.json"
+    let locationManager = CLLocationManager()
     var weatherArray: [Weather] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addDefaultValues()
-        loadWeatherData()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        locationManager.requestAlwaysAuthorization()
+        locationManager.startUpdatingLocation()
+        
         weatherTableView.delegate = self
         weatherTableView.dataSource = self
         // Do any additional setup after loading the view.
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
+        let location = locations[locations.count - 1]
+        if location.horizontalAccuracy > 0 {
+            locationManager.stopUpdatingLocation()
+            let long = String(location.coordinate.longitude)
+            let lat = String(location.coordinate.latitude)
+            weatherArray.append(Weather(city: lat + "," + long))
+            loadWeatherData()
+        }
     }
     
     @IBAction func reloadButtonTapped(_ sender: Any) {
@@ -54,7 +70,7 @@ class WeatherViewController: UIViewController {
     }
     
     @IBAction func addButtonTapped(_ sender: Any) {
-        if locationtextField.text == nil {
+        if locationtextField.text == "" {
             return
         }
         let location = locationtextField.text!
@@ -65,14 +81,31 @@ class WeatherViewController: UIViewController {
             response in
             switch response.result {
             case .success(let value):
+                if self.cityIsNew(newCity: value.location.name!) == false {
+                    self.makeAlert(error: "repeating location", message: "This location is already added and can't be added twice")
+                    return
+                }
                 self.weatherArray.append(Weather(city: location))
                 self.loadWeatherData()
-            case .failure(let error):
-                let actionSheet = UIAlertController(title: "error", message: "could not load data for selected loaction.", preferredStyle: .actionSheet)
-                actionSheet.addAction(UIAlertAction(title: "OK", style: .default))
-                self.present(actionSheet, animated: true)
+            case .failure(_):
+                self.makeAlert(error: "location error", message: "could not load data for selected loaction.")
             }
         }
+    }
+    
+    func makeAlert(error: String, message: String) {
+        let actionSheet = UIAlertController(title: error, message: message, preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(actionSheet, animated: true)
+    }
+    
+    func cityIsNew(newCity: String) -> Bool {
+        for val in weatherArray {
+            if val.data?.location.name == newCity {
+                return false
+            }
+        }
+        return true
     }
     
     func loadWeatherData() {
@@ -99,7 +132,7 @@ class WeatherViewController: UIViewController {
     
     func setBackground(_ index: Int) {
         if let precip = weatherArray[index].data?.current.precipMm {
-            if precip > 0.0 {
+            if precip <= 0 {
                 weatherArray[index].background = .sunny
             } else if weatherArray[index].data!.current.tempC! < 0 {
                 weatherArray[index].background = .snow
@@ -113,13 +146,6 @@ class WeatherViewController: UIViewController {
         DispatchQueue.main.async {
             self.weatherTableView.reloadData()
         }
-    }
-    
-    func addDefaultValues() {
-        weatherArray.append(Weather(city: "Riga"))
-        weatherArray.append(Weather(city: "Brazil"))
-        weatherArray.append(Weather(city: "Kiev"))
-        weatherArray.append(Weather(city: "Fairbanks"))
     }
 
 }
@@ -135,12 +161,20 @@ extension WeatherViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? WeatherTableViewCell else {
             return UITableViewCell()
         }
-        cell.cityLabel.text = weatherArray[indexPath.row].city
+        //cell.cityLabel.text = weatherArray[indexPath.row].city
+        cell.cityLabel.text = weatherArray[indexPath.row].data?.location.name
         if let data = weatherArray[indexPath.row].data {
             cell.tempLabel.text = "\(String(data.current.tempC!))C°"
+            cell.precipitationLabel.text = "\(String(data.current.precipMm!))mm"
+            if data.current.tempC! > 0 {
+                cell.precipitationImage.image = UIImage(systemName: "cloud.drizzle")
+            } else {
+                cell.precipitationImage.image = UIImage(systemName: "cloud.snow")
+            }
         }
         self.setBackground(indexPath.row)
         cell.backgroundView = UIImageView(image: UIImage(named: weatherArray[indexPath.row].background.rawValue))
+        cell.selectionStyle = .none
         
         return cell
     }
@@ -150,6 +184,18 @@ extension WeatherViewController: UITableViewDataSource {
             weatherArray.remove(at: indexPath.row)
             weatherTableView.deleteRows(at: [indexPath], with: .fade)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 160
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        weatherArray.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+    }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
     }
 }
 

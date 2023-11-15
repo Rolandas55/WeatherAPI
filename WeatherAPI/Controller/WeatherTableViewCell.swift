@@ -11,11 +11,14 @@ class WeatherTableViewCell: UITableViewCell {
 
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var tempLabel: UILabel!
+    @IBOutlet weak var precipitationLabel: UILabel!
+    @IBOutlet weak var precipitationImage: UIImageView!
+    
+    
     //var cellImage: String = "CellSnow"
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        //self.backgroundView = UIImageView(image: UIImage(named: cellImage))
         // Initialization code
     }
 
